@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "EncryptedUserDefaults.h"
+
 
 @interface ViewController ()
 
@@ -17,6 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    EncryptedUserDefaults *ecd = [[EncryptedUserDefaults alloc] initWithName:@"my_wave" andProtectionKey:@"320ijeakdlakda23"];
+    
+    NSObject *object = [ecd objectForKey:@"Hello"];
+   
+    if(object == nil){
+        [ecd setObject:@"World" forKey:@"Hello"];
+        [ecd forceStore];
+        NSLog(@"Storing Object: \"World\" for key \"Hello\"");
+    }else{
+        NSLog(@"Got Stored Object: %@",object);
+    }
+
 }
 
 
